@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>IVML - Bar Chart</title>
+</head>
+<script type="text/javascript" src="../vendor/d3-3.4.3/d3.js"></script>
+<script type="text/javascript" src="../vendor/angular-1.2.14/angular.js"></script>
+<script type="text/javascript" src="../vendor/ui-bootstrap-tpls-0.11.0.min.js"></script>
+<script type="text/javascript" src="../dist/ivml.0.0.0.js"></script>
+
+<link href="../vendor/bootstrap.min.css" rel="stylesheet"/>
+
+
+<body>
+<div ng-app="ivmlexample">
+
+    <div ng-controller="BarCtrl">
+        <div class="container">
+            <div class="page-header"><h1>IVML Bar-Group and Bar Examples </h1></div>
+            <div class="row">
+                <div class="col-md-8">
+                    <plot height="600" width="600"
+                          yaxis-label-text="'y-values'"
+                          xaxis-label-text="'x-values'" xticks="10" xmin="0" xmax="20" ymin="0" ymax="100"
+                          yodomain="ordinals">
+                        <bar-group type="'stacked'" arrangement="'horizontal'">
+                            <bars data="ordinalSetA" position-function="'/0'" value-function="'/1'"
+                                  fill="colorFx" drag-e="dragfx" thickness="'40'"></bars>
+                        </bar-group> 
+
+                    </plot>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    angular.module("ivmlexample", ['ivml'])
+            .controller("BarCtrl", function ($scope) {
+                $scope.ordinalSetA = [
+                    [ 'A', 1],
+                    ['B', 13],
+                    ['C', 6],
+                    ['D', 2],
+                    ['E', 5],
+                    ['F', 9]
+                ];
+
+                $scope.ordinals = ['A', 'B', 'C', 'D', 'E', 'F'];
+		
+                $scope.colorFx = function(d, i){
+                    var colors = ['blue', 'green', 'yellow', 'purple', 'orange'];
+                    return colors[Math.floor(Math.random()*colors.length)];
+                }                
+                $scope.dragfx = function(d,i){
+                    
+                    //d[i] = d3.event.x;
+                    //$scope.ordinalSetA[i][1] += 30;
+                    //console.log("dragging", i);
+                }
+                
+
+
+
+            });
+</script>
+</body>
+</html>
